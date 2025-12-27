@@ -1,4 +1,4 @@
-FROM php:8.4-apache
+FROM php:8.4-fpm
 
 WORKDIR /var/www/html
 
@@ -20,9 +20,6 @@ RUN docker-php-ext-install \
     zip \
     pdo_mysql
 
-RUN a2enmod rewrite headers remoteip
-COPY apache-proxy.conf /etc/apache2/conf-enabled/proxy.conf
-
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 RUN git config --global --add safe.directory /var/www/html \
@@ -32,4 +29,4 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN chown -R www-data:www-data /var/www/html
 
-EXPOSE 80
+EXPOSE 9000
