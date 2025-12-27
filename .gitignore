@@ -1,2 +1,7 @@
 htpasswd
 .htpasswd
+zylocal.com.pem
+zylocal.com.key
+*.crt
+*.pem
+*.key

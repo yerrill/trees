@@ -20,7 +20,8 @@ RUN docker-php-ext-install \
     zip \
     pdo_mysql
 
-RUN a2enmod rewrite headers
+RUN a2enmod rewrite headers remoteip
+COPY apache-proxy.conf /etc/apache2/conf-enabled/proxy.conf
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
