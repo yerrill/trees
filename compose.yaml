@@ -7,7 +7,7 @@ services:
     depends_on:
       - db
     volumes:
-      - webapp_data:/var/www/html/data:rw
+      - webapp_data:/var/www/html:rw
     networks:
       - frontend
       - backend
@@ -30,6 +30,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./htpasswd:/etc/nginx/.htpasswd:ro
+      - webapp_data:/var/www/html:ro
       - ./zylocal.com.pem:/etc/nginx/zylocal.com.pem:ro
       - ./zylocal.com.key:/etc/nginx/zylocal.com.key:ro
     depends_on:
