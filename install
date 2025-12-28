@@ -48,7 +48,7 @@ composer install
 unset COMPOSER_ALLOW_SUPERUSER
 chown -R www-data:www-data /var/www/html
 chmod -R 777 /var/www/html/webtrees/data
-ch $wd
+cd $wd
 
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.old
 cp $wd/nginx.conf /etc/nginx
