@@ -52,6 +52,7 @@ cd $wd
 
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.old
 cp $wd/nginx.conf /etc/nginx
+rm /etc/nginx/sites-enabled/default
 mkdir /etc/nginx/ssl
 touch /etc/nginx/ssl/$domain.pem
 touch /etc/nginx/ssl/$domain.key
