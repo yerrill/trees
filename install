@@ -1,12 +1,10 @@
 #!/usr/bin/bash
 
-$PHP="php8.3"
-$composerurl="https://raw.githubusercontent.com/composer/getcomposer.org/refs/heads/main/web/installer"
-$webtrees_repo="https://github.com/fisharebest/webtrees.git"
-$webtrees_version="2.2.4"
-$domain="zylocal.com"
-
-$wd=$(pwd)
+PHP="php8.3"
+composerurl="https://raw.githubusercontent.com/composer/getcomposer.org/refs/heads/main/web/installer"
+webtrees_repo="https://github.com/fisharebest/webtrees.git"
+webtrees_version="2.2.4"
+domain="zylocal.com"
 
 apt install -y \
     git \
