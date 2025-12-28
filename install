@@ -1,0 +1,54 @@
+#!/usr/bin/bash
+
+$PHP="php8.3"
+$composerurl="https://raw.githubusercontent.com/composer/getcomposer.org/refs/heads/main/web/installer"
+$webtrees_repo="https://github.com/fisharebest/webtrees.git"
+$webtrees_version="2.2.4"
+$domain="zylocal.com"
+
+$wd=$(pwd)
+
+apt install -y \
+    git \
+    curl \
+    mysql-server \
+    sqlite3 \
+    nginx \
+    $PHP \
+    $PHP-fpm \
+    $PHP-curl \
+    $PHP-gd \
+    $PHP-intl \
+    $PHP-xml \
+    $PHP-mysql \
+    $PHP-sqlite3 \
+    $PHP-pdo \
+    $PHP-zip \
+    $PHP-mbstring
+
+systemctl enable mysql
+systemctl enable $PHP-fpm
+systemctl enable nginx
+
+systemctl start mysql
+systemctl start $PHP-fpm
+systemctl stop nginx
+
+mysql -u root < mysql-setup.sql
+
+curl -o composer-setup.php $composerurl
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+rm composer-setup.php
+
+cd /var/www/html
+git clone $webtrees_repo --branch $webtrees_version --depth 1
+cd webtrees
+composer install
+chown -R www-data:www-data /var/www/html
+chmod -R 777 /var/www/html/webtrees/data
+
+mkdir /etc/nginx/ssl
+touch /etc/nginx/ssl/$domain.pem
+touch /etc/nginx/ssl/$domain.key
+
+echo "Copy $domain certificate and key to /etc/nginx/ssl, then run systemctl start nginx"
